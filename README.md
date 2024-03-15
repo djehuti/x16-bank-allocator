@@ -43,7 +43,7 @@ So, this prototype will use option 2.
 
 ### The API
 
-I think we need 4 functions in the API (these names are placeholders):
+I think we need 4 (or 5) functions in the API (these names are placeholders):
 
 (initialization: set the bitmap to all free except banks 0, 1, and
 any we use for data storage, such as wherever the implementation of this is)
@@ -54,10 +54,10 @@ any we use for data storage, such as wherever the implementation of this is)
 
 2) ALLOCATE. Allocates a bank, and returns the index of it, or 0 if that fails.
    If it succeeds, writes your bank signature to the bank, after verifying it.
+   Or deallocates a bank and overwrites the signature in the descriptor block.
 
-3) FINDBANK.
-   Looks for a bank with the signature the caller specifies, returns its
-   bank number in A. The routine checks checksums or whatever to validate
+3) FINDBANK. Looks for a bank with the signature the caller specifies, returns
+   its bank number in A. The routine checks checksums or whatever to validate
    that the bank doesn't just happen to contain a petscii string.
    The API between the caller and the callee is up to them to negotiate.
    The API, by convention, should be a set of jump vectors in the signature
@@ -65,13 +65,17 @@ any we use for data storage, such as wherever the implementation of this is)
 
 4) LISTBANKS return the bitmap of allocated banks (64 bytes).
 
+Optionally:
+
 5) BANKINFO return info about the given bank (its descriptor block)
 
-Plus an internal function to compute the checksum.
+Plus an internal function to compute the checksum. I guess maybe that should
+be public too, for developer convenience. Unless there's one in the KERNAL
+already?
 
 If these are located in RAM, they can just be a library you link your
 program with. If ROM, then we need to expose these 4 functions (we can
-likely get away with one kernal ext vector and use the same entrypoint
+likely get away with one KERNAL ext vector and use the same entry point
 for all 4 functions).
 
 I think that's all that's really needed.
