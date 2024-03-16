@@ -49,7 +49,7 @@ I think we need 4 (or 5) functions in the API (these names are placeholders):
 any we use for data storage, such as wherever the implementation of this is)
 
 1) SETALLOC. Allocates or deallocates a block by its index, and returns the
-   previous state of that bank. Don't clobber a bank if this returns nonezero.
+   previous state of that bank. Don't clobber a bank if this returns nonzero.
    But indeed don't call this at all, use ALLOCATE.
 
 2) ALLOCATE. Allocates a bank, and returns the index of it, or 0 if that fails.
@@ -69,13 +69,9 @@ Optionally:
 
 5) BANKINFO return info about the given bank (its descriptor block)
 
-Plus an internal function to compute the checksum. I guess maybe that should
-be public too, for developer convenience. Unless there's one in the KERNAL
-already?
-
 If these are located in RAM, they can just be a library you link your
 program with. If ROM, then we need to expose these 4 functions (we can
 likely get away with one KERNAL ext vector and use the same entry point
-for all 4 functions).
+for all 5 functions).
 
 I think that's all that's really needed.

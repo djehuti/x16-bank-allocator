@@ -1,2 +1,5 @@
-hworld: hworld.p8
-	p8compile -target cx16 -emu hworld.p8
+loader.prg: src/loader.p8
+	p8compile -target cx16 src/loader.p8
+
+clean:
+	$(RM) hworld
