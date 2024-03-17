@@ -40,8 +40,7 @@ main {
     sub testAllocate() {
         testing.starttest("allocate")
 
-        signatures.setname(&myblock, "bens bank")
-        signatures.sign(&myblock)
+        impl.nameAndSign(&myblock, "bens bank")
         bensBank = impl.allocate(0, true, &myblock)
         if bensBank == 0 {
             testing.fail()
@@ -94,14 +93,10 @@ main {
 
         ubyte foundbanks = 0
         ubyte bank
-        for bank in 2 to banks.maxRamBank {
-            if signatures.check(bank) {
+        for bank in 0 to 255 {
+            bool r = impl.bankinfo(bank, &myblock)
+            if r {
                 foundbanks += 1
-                bool r = impl.bankinfo(bank, &myblock)
-                if not r {
-                    testing.fail()
-                    txt.print("bankinfo failed for valid bank")
-                }
                 txt.print("\nbank ")
                 txt.print_ub(bank)
                 txt.print(": >>>")

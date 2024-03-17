@@ -125,4 +125,10 @@ impl {
         signatures.copy(&signatures.temp, addr)
         return true
     }
+
+    ; Sets the name of a block and signs it, in preparation for allocate
+    sub nameAndSign(uword block, str name) {
+        signatures.setname(block, name)
+        signatures.sign(block)
+    }
 }
