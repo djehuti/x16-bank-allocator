@@ -3,22 +3,23 @@
 ;
 ; This file, loader.p8, installs the manager and initializes things.
 
+%import syslib
+%import textio
+
 %zeropage basicsafe
 %option no_sysinit
 %launcher basic 
-
-%import syslib
-%import textio
 
 main {
     sub start() {
         install_api()
         txt.print("installed bank manager\n")
-        ; then jump to its init
         return
     }
 
     sub install_api() {
         ; TODO: load the manager.bin into $0400
+        ; and then jump to its initialization entrypoint
+        return
     }
 }

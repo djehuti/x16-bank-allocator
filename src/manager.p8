@@ -1,17 +1,17 @@
 ; Commander X16 Bank Allocator
 ; by Ben Cox (c) 2024, under MIT license. See LICENSE for details.
 ;
-; This file, manager.p8, implements the bank allocator bankalloc.
-
-%zeropage dontuse
-%option no_sysinit, ignore_unused
-%launcher none
-%address $0400
+; This file, manager.p8, implements the bank allocator loadable part.
+; Build this into manager.bin, to be loaded into golden ram.
 
 %import syslib
 %import textio
 
-%import abi
+%zeropage dontuse
+%launcher none
+%option no_sysinit, ignore_unused
+%address $0400
+
 %import impl
 
 ; main $0400 { ; This block should be exactly 24 bytes long.
