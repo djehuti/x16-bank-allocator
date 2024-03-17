@@ -1,5 +1,5 @@
 ; Commander X16 Bank Allocator
-; by Ben Cox (c) 2024, under MIT license. See LICENSE for details.
+; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
 ; This file, bits.p8, implements a bit counter.
 
