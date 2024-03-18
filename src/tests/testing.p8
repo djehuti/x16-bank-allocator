@@ -1,12 +1,10 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
 ; This file implements a superminiature testing "framework" (HA).
 
 %import textio
-
-%zeropage dontuse
-%option ignore_unused
 
 ;
 ; To use this testing "framework":
@@ -49,7 +47,7 @@ testing {
     ; leaves any error message printing to you.
     sub fail() {
         ok = false
-        txt.print("\n")
+        txt.nl()
         return
     }
 

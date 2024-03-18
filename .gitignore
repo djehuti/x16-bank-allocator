@@ -1,4 +1,2 @@
 .envrc
-*.asm
-*.prg
-*.vice-mon-list
+out

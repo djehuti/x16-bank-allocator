@@ -1,15 +1,24 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
 ; This file, impl.p8, implements the bank allocator.
+; This is not a standalone unit; it is intended to be %imported.
+; The functions here are exposed to the %importer but are not
+; considered part of the "public" API. (The "public" API will be
+; a jump table for ASM users and some asmsub wrappers for p8 callers,
+; and the jump table will point to internal wrappers that call
+; these functions.
+; (That is: external ASM callers jump to the jump table, which
+; jumps to a tiny asmsub in the manager that calls these functions;
+; external prog8 callers get asmsub wrappers for the jump table.
+; That way the jump table is the only exposed ABI; callers don't
+; need to know or care that the implementation is in p8.
 
 %import syslib
 
 %import banks
 %import signatures
-
-%zeropage dontuse
-%option ignore_unused
 
 impl {
     ; A simple flag to keep us from repeating initialization and wiping stuff

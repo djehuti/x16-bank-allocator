@@ -1,29 +1,39 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
-; This file, signatures.p8, implements the bank allocator signatures subroutines.
+; This file, signatures.p8, implements the bank allocator
+; signatures subroutines.
 
 %import string
 %import syslib
 
 %import banks
 
-%zeropage dontuse
-%option ignore_unused
-
 ; This is the signature block at the end of each RAM bank.
 ; We're not exposing this to callers; they should consider those
 ; last 32 bytes of the bank to be our housekeeping area.
-; They will keep a structure like this somewhere else, and we'll
-; maintain the copy at the end of the bank.
+; They'll keep a structure like this somewhere else, and we'll
+; maintain the copy at the end of the bank (install it for them
+; and copy it out for callers who want to examine it). They should
+; only directly examine this address in banks they own, and use
+; the exposed library function (which will wrap one of these
+; non-public functions).
+
 sigblock {
     &ubyte[32] block     = $BFE0
 
+    ; TODO re-express these as constant offsets and use them below
+    ; How the block breaks down:
     &uword     sigsum    = $BFE0
     &ubyte[14] userbytes = $BFE2
+    ; space-padded to fill all 16 bytes (NOT nul-terminated text!)
     &ubyte[16] name      = $BFF0
 }
 
+
+; The implementations of the functions to manipulate these.
+; exposed to %importers but not in the public API.
 signatures {
     ; copy copies a signature block from src to dest,
     ; ignoring banking altogether.
@@ -118,6 +128,6 @@ signatures {
         return v
     }
 
-    ; Temporary area in fixed RAM to copy signatures between banks.
+    ; Temporary area (somewhere) in fixed RAM to copy signatures between banks.
     ubyte[32] temp
 }

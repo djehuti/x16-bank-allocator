@@ -1,17 +1,20 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
-; This file, banks.p8, implements the bank map and some bank utilities.
+; This file, banks.p8, implements the bank map and some bank utilities. There
+; are also a couple of utility subs to save and restore the CX16 bank register.
 ;
-; The subroutines in this file should be considered internal; we won't
-; expose them to clients of our API.
+; These subroutines manipulate a 256-bit bitmap, indexed by ubyte. They're
+; specialized to know about reserving banks 0-1 and any missing banks; they're
+; not a generalized 256-bit bitmap.
+;
+; The bitmap is organized MSB-first (that is, the 0th bit is $80 at map[0],
+; and the 255th bit is $01 in map[$3F]).
 
 %import syslib
 
 %import bits
-
-%zeropage dontuse
-%option ignore_unused
 
 banks {
     ubyte[64] bankmap       ; The bank bitmap - 256 bits (64 bytes)
@@ -63,7 +66,7 @@ banks {
         return bank >= 2 and bank <= maxRamBank
     }
 
-    ; setBit ets or clears a single bit in the bitmap.
+    ; setBit sets or clears a single bit in the bitmap.
     ; Returns the old value (0 or nonzero).
     sub setBit(ubyte bank, bool bit) -> ubyte {
         ubyte index = bank >> 3
@@ -95,6 +98,7 @@ banks {
     }
 
     ; save a copy of the current RAM bank register.
+    ; There is no stack: if you save twice, you lose the first one.
     sub save() {
         savedBank = cx16.getrambank()
         return

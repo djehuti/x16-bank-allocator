@@ -1,10 +1,14 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
 ; This file, bits.p8, implements a bit counter.
-
-%zeropage dontuse
-%option ignore_unused
+; Not a standalone unit; %import it.
+;
+; "exported" function: bits.bitcount(ubyte)->ubyte
+;
+; (not "exported" to external callers, just to the importing module)
+;
 
 bits {
     ; Count the 1-bits in the given byte.
@@ -13,6 +17,7 @@ bits {
     }
 
     ; Lookup table for a nybble at a time.
+    ; This should be considered private and const.
     ubyte[16] counted = [
         0, 1, 1, 2, ; %0000 %0001 %0010 %0011
         1, 2, 2, 3, ; %0100 %0101 %0110 %0111

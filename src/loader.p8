@@ -1,14 +1,15 @@
 ; Commander X16 Bank Allocator
+;
 ; by Ben Cox (c) 2024, under BSD license. See LICENSE for details.
 ;
 ; This file, loader.p8, installs the manager and initializes things.
 
+%zeropage basicsafe
+%launcher basic 
+%option ignore_unused
+
 %import syslib
 %import textio
-
-%zeropage basicsafe
-%option no_sysinit
-%launcher basic 
 
 main {
     sub start() {
