@@ -5,7 +5,6 @@
 
 %zeropage basicsafe
 %launcher basic 
-%option no_sysinit
 
 %import syslib
 %import textio

@@ -3,15 +3,14 @@
 ;
 ; This file, impl_test.p8, contains unit tests for impl.p8.
 
+%zeropage basicsafe
+%launcher basic
+
 %import syslib
 %import textio
 
 %import impl
 %import testing
-
-%zeropage basicsafe
-%launcher basic
-%option no_sysinit
 
 main {
     sub start() {

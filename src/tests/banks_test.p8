@@ -3,15 +3,14 @@
 ;
 ; This file, banks_test.p8, tests banks.p8.
 
+%zeropage basicsafe
+%launcher basic 
+
 %import syslib
 %import textio
 
 %import banks
 %import testing
-
-%zeropage basicsafe
-%launcher basic 
-%option no_sysinit
 
 main {
     sub start() {

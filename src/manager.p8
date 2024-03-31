@@ -9,9 +9,7 @@
 
 %zeropage dontuse
 %launcher none
-%option no_sysinit, ignore_unused
-
-%import syslib
+%option no_sysinit
 
 %import impl
 

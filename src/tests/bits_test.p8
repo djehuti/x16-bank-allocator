@@ -3,14 +3,13 @@
 ;
 ; This file, siginatures_test.p8, tests signatures.p8.
 
+%zeropage basicsafe
+%launcher basic 
+
 %import textio
 
 %import bits
 %import testing
-
-%zeropage basicsafe
-%launcher basic 
-%option no_sysinit
 
 main {
     sub start() {
