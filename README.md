@@ -3,6 +3,15 @@
 Here I propose a new X16 KERNAL API, for managing RAM memory banks,
 to be used by cooperating programs to share space non-intrusively.
 
+## The Source Code Here
+
+I made a prototype in prog8, which includes some features that are not a
+part of the proposal. Nor do I propose implementing this in prog8 for the
+kernal; it was just a fun and easy way to prototype it.
+
+Please don't hold anything in the prototype against me. Just playing with
+ideas; the prototype is not part of the proposed ROM change.
+
 ## Why
 
 There are plenty of programs like BASLOAD (the non-ROM version), or
